@@ -3,7 +3,6 @@
  */
 package com.jonesgeeks.mc.remote;
 
-import com.jonesgeeks.daap.Response;
 
 /**
  * @author will
@@ -11,6 +10,6 @@ import com.jonesgeeks.daap.Response;
  */
 public interface ServerStatusListener {
 	
-	public void serverSatusReceived(Response response);
+	public void serverSatusReceived(ServerStatus status);
 
 }

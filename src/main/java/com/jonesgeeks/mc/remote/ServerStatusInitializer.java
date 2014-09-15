@@ -21,7 +21,7 @@ public class ServerStatusInitializer extends ChannelInitializer<SocketChannel> {
 	protected void initChannel(SocketChannel ch) throws Exception {
 		ch.pipeline()
 			.addLast(new HttpClientCodec())
-//			.addLast(new DAAPDecoder())
+			.addLast(new DAAPDecoder())
 			.addLast(statusHandler);
 	}
 

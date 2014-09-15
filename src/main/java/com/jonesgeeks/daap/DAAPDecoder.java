@@ -3,36 +3,52 @@
  */
 package com.jonesgeeks.daap;
 
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ReplayingDecoder;
-import static com.jonesgeeks.daap.DAAPDecoderState.*;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.HttpContent;
+import io.netty.handler.codec.http.HttpObject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author will
  *
  */
-public class DAAPDecoder extends ReplayingDecoder<DAAPDecoderState> {
+@Sharable
+public class DAAPDecoder extends SimpleChannelInboundHandler<HttpObject> {
+	private static final Logger LOG = LoggerFactory.getLogger(DAAPDecoder.class);
 
-	public DAAPDecoder() {
-		super(cmst);
+	/*
+	 * 
+	 */
+	@Override
+	protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg)
+			throws Exception {
+		
+		if (msg instanceof HttpContent) {
+            HttpContent httpContent = (HttpContent) msg;
+
+            ByteBuf content = httpContent.content();
+            Response res = ResponseParser.performParse(new ByteBufInputStream(content));
+            ctx.fireChannelRead(res);
+		} else {
+			ctx.fireChannelRead(msg);
+		}
+		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see io.netty.channel.ChannelInboundHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	 */
 	@Override
-	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-		int length;
-		// Keep reading data as a chunk until the end of connection is reached.
-        int toRead = actualReadableBytes();
-        if (toRead > 0) {
-            ByteBuf content = in.readBytes(toRead);
-            if (in.isReadable()) {
-                out.add(ResponseParser.performParse(new ByteBufInputStream(content)));
-            }
-        }
-
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+		cause.printStackTrace();
+		ctx.close();
 	}
 
 }
