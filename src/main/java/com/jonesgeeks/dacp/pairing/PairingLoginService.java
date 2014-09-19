@@ -12,13 +12,13 @@ import org.dyndns.jkiddo.service.daap.client.RequestHelper;
  * @author will
  *
  */
-public class Session {
+public class PairingLoginService {
 
 	private final String host;
 	private final int port;
 	private final int sessionId;
 
-	public Session(final String host, final int port, final String pairingGuid) throws Exception {
+	public PairingLoginService(final String host, final int port, final String pairingGuid) throws Exception {
 		// start a session with the iTunes server
 		this.host = host;
 		this.port = port;
@@ -82,7 +82,6 @@ public class Session {
 
 	public void play() throws Exception {
 		// http://192.168.254.128:3689/ctrl-int/1/playpause?session-id=130883770
-		System.out.println("Playing via: " +String.format("%s/ctrl-int/1/playpause?session-id=%s", getRequestBase(), getSessionId()));
 		RequestHelper.dispatch(String.format("%s/ctrl-int/1/playpause?session-id=%s", getRequestBase(), getSessionId()));
 	}
 	
@@ -99,8 +98,7 @@ public class Session {
 	 * @return
 	 * @throws Exception
 	 */
-	public PlayingStatus getPlayStatusUpdateBlocking() throws Exception
-	{
+	public PlayingStatus getPlayStatusUpdateBlocking() throws Exception {
 		// try fetching next revision update using socket keepalive
 		// approach
 		// using the next revision-number will make itunes keepalive
@@ -109,8 +107,7 @@ public class Session {
 		return RequestHelper.requestParsed(String.format("%s/ctrl-int/1/playstatusupdate?revision-number=%d&session-id=%s", getRequestBase(), getRevision(), getSessionId()), true);
 	}
 	
-	public long getRevision() throws Exception
-	{
+	public long getRevision() throws Exception {
 		final UpdateResponse state = RequestHelper.requestParsed(String.format("%s/update?session-id=%s&revision-number=%s&delta=0", this.getRequestBase(), sessionId, 1), true);
 		long revision = state.getServerRevision().getUnsignedValue();
 		return revision;

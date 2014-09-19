@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jonesgeeks.dacp.pairing;
+package com.jonesgeeks.dacp;
 
 import java.util.concurrent.ConcurrentHashMap;
 

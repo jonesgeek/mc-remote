@@ -30,8 +30,9 @@ public class ServerStatusHandler extends SimpleChannelInboundHandler<Response> {
 			throws Exception {
 		Response cmst = msg.getNested("cmst");
 		TrackInfo currentTrack = new TrackInfo(cmst.getString("cann"), cmst.getString("canl"), 
-				cmst.getString("cana"), cmst.getString("asai"));
+				cmst.getString("cana"), cmst.getString("asai"), cmst.getString("cang"));
 		ServerStatus status = new ServerStatus(currentTrack);
+		
 		for( ServerStatusListener listener : listeners ) {
 			listener.serverSatusReceived(status);
 		}

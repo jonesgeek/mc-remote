@@ -15,18 +15,23 @@ public class TrackInfo {
 	private String album;
 	private String artist;
 	private String albumId;
+	private String genre;
 	
 	/**
 	 * @param name
 	 * @param album
 	 * @param artist
 	 * @param albumId
+	 * @param genre
 	 */
-	public TrackInfo(String name, String album, String artist, String albumId) {
+	public TrackInfo(String name, String album, String artist, String albumId,
+			String genre) {
+		super();
 		this.name = name;
 		this.album = album;
 		this.artist = artist;
 		this.albumId = albumId;
+		this.genre = genre;
 	}
 
 	/**
@@ -55,6 +60,13 @@ public class TrackInfo {
 	 */
 	public String getAlbumId() {
 		return albumId;
+	}
+
+	/**
+	 * @return the genre
+	 */
+	public String getGenre() {
+		return genre;
 	}
 	
 	
