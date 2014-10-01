@@ -13,6 +13,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,6 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
 import org.apache.logging.log4j.Logger;
-import org.dyndns.jkiddo.service.dmap.Util;
 
 import cpw.mods.fml.common.FMLLog;
 
@@ -71,7 +71,7 @@ public class DACPPairingServer {
 					values.put("txtvers", "1");
 					values.put("Pair", "0000000000000001");
 					
-					info = ServiceInfo.create(TOUCH_REMOTE_CLIENT, Util.toHex(name), port, 0, 0, values);
+					info = ServiceInfo.create(TOUCH_REMOTE_CLIENT, toHex(name), port, 0, 0, values);
 					mdns.registerService(info);
 				}
 			}).sync().channel();
@@ -98,6 +98,24 @@ public class DACPPairingServer {
 		} if( mdns != null ) {
 			mdns.unregisterAllServices();
 		}
+	}
+	
+
+	
+	public static String toHex(final String value) {
+		try {
+			return toHex(value.getBytes("UTF-8"));
+		} catch(final UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static String toHex(final byte[] code) {
+		final StringBuilder sb = new StringBuilder();
+		for(final byte b : code) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+		return sb.toString().toUpperCase();
 	}
 
 	/**

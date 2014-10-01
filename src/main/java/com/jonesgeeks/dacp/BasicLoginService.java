@@ -42,7 +42,7 @@ public class BasicLoginService implements LoginService {
 	}
 	
 	protected Session login(String baseUri, int sessionId) {
-		
+		return null;
 	}
 
 	/**
