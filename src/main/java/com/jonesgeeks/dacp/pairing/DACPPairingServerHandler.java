@@ -33,8 +33,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+
+import cpw.mods.fml.common.FMLLog;
 
 /**
  * @author will
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 @Sharable
 public class DACPPairingServerHandler extends SimpleChannelInboundHandler<Object> {
-	private static final Logger LOG = LoggerFactory.getLogger(DACPPairingServerHandler.class);
+	private static final Logger LOG = FMLLog.getLogger();
 	private final static byte[] CHAR_TABLE = new byte[] { (byte) '0',
 		(byte) '1', (byte) '2', (byte) '3', (byte) '4', (byte) '5',
 		(byte) '6', (byte) '7', (byte) '8', (byte) '9', (byte) 'A',

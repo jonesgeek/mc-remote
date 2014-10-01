@@ -19,16 +19,17 @@ import java.util.Map;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
+import org.apache.logging.log4j.Logger;
 import org.dyndns.jkiddo.service.dmap.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import cpw.mods.fml.common.FMLLog;
 
 /**
  * @author will
  *
  */
 public class DACPPairingServer {
-	private static final Logger LOG = LoggerFactory.getLogger(DACPPairingServer.class);
+	private static final Logger LOG = FMLLog.getLogger();
 	public final static String TOUCH_REMOTE_CLIENT = "_touch-remote._tcp.local.";
 	
 	private int port = 55471;

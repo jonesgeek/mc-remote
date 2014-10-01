@@ -27,7 +27,7 @@ public class ItunesRemote implements Remote{
 	 */
 	public ItunesRemote(Session session) {
 		this.session = session;
-		statusListeners = new ArrayList<>();
+		statusListeners = new ArrayList<ServerStatusListener>();
 		poller = new ServerStatusPoller(session, statusListeners);
 	}
 

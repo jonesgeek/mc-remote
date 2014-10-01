@@ -12,8 +12,7 @@ import java.util.Scanner;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
 
 import com.jonesgeeks.dacp.LoginService;
 import com.jonesgeeks.dacp.ServiceRegistry;
@@ -26,12 +25,14 @@ import com.jonesgeeks.dacp.pairing.PairingLoginService;
 import com.jonesgeeks.mc.remote.itunes.ItunesRemote;
 import com.jonesgeeks.mc.remote.itunes.status.ServerStatusPoller;
 
+import cpw.mods.fml.common.FMLLog;
+
 /**
  * @author will
  *
  */
 public class Main {
-	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+	private static final Logger LOG = FMLLog.getLogger();
 	
 	private final JmDNS mdns;
 	private final DACPPairingServer server;

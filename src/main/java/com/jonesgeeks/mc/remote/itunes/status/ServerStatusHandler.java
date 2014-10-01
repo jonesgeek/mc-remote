@@ -9,13 +9,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.util.Collection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
 
 import com.jonesgeeks.daap.Response;
 import com.jonesgeeks.mc.remote.ServerStatus;
 import com.jonesgeeks.mc.remote.ServerStatusListener;
 import com.jonesgeeks.mc.remote.TrackInfo;
+
+import cpw.mods.fml.common.FMLLog;
 
 /**
  * @author will
@@ -23,7 +24,7 @@ import com.jonesgeeks.mc.remote.TrackInfo;
  */
 @Sharable
 public class ServerStatusHandler extends SimpleChannelInboundHandler<Response> {
-	private static final Logger LOG = LoggerFactory.getLogger(ServerStatusHandler.class);
+	private static final Logger LOG = FMLLog.getLogger();
 	
 	private final Collection<ServerStatusListener> listeners;
 	

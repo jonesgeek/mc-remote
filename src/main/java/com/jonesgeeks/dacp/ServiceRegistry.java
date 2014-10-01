@@ -10,8 +10,9 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+
+import cpw.mods.fml.common.FMLLog;
 
 /**
  * @author will
@@ -20,7 +21,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class ServiceRegistry extends ConcurrentHashMap<String, ServiceInfo>
 		implements ServiceListener {
-	private static final Logger LOG = LoggerFactory.getLogger(ServiceRegistry.class);
+	private static final Logger LOG = FMLLog.getLogger();
 	
 	public ServiceRegistry(JmDNS mdns, String serviceType) {
 		mdns.addServiceListener(serviceType, this);
