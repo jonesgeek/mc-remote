@@ -9,6 +9,15 @@ package com.jonesgeeks.mc.remote;
  */
 public class ServerStatus {
 	private TrackInfo currentTrack;
+	private long revision;
+
+	/**
+	 * @param currentTrack
+	 */
+	public ServerStatus(TrackInfo currentTrack, long revision) {
+		this.currentTrack = currentTrack;
+		this.revision = revision;
+	}
 
 	/**
 	 * @return the currentTrack
@@ -18,11 +27,10 @@ public class ServerStatus {
 	}
 
 	/**
-	 * @param currentTrack
+	 * @return the revision
 	 */
-	public ServerStatus(TrackInfo currentTrack) {
-		super();
-		this.currentTrack = currentTrack;
+	public long getRevision() {
+		return revision;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.jonesgeeks.mc.remote;
+package com.jonesgeeks.mc.remote.itunes.status;
 
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInitializer;

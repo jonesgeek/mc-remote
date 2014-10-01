@@ -5,6 +5,8 @@ package com.jonesgeeks.mc.remote;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.jmdns.JmDNS;
@@ -13,12 +15,16 @@ import javax.jmdns.ServiceInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jonesgeeks.dacp.LoginService;
 import com.jonesgeeks.dacp.ServiceRegistry;
+import com.jonesgeeks.dacp.Session;
 import com.jonesgeeks.dacp.TouchableServiceRegistry;
 import com.jonesgeeks.dacp.pairing.DACPPairingServer;
 import com.jonesgeeks.dacp.pairing.PairingEvent;
 import com.jonesgeeks.dacp.pairing.PairingListener;
 import com.jonesgeeks.dacp.pairing.PairingLoginService;
+import com.jonesgeeks.mc.remote.itunes.ItunesRemote;
+import com.jonesgeeks.mc.remote.itunes.status.ServerStatusPoller;
 
 /**
  * @author will
@@ -76,16 +82,6 @@ public class Main {
 	public void stop() throws InterruptedException {
 		server.stop();
 	}
-	
-	public void status(ServerStatusListener listener) {
-		ServerStatusRequest status = new ServerStatusRequest(session.getHost(), session.getPort(), session.getSessionId());
-		status.addListener(listener);
-		try {
-			status.getStatus();
-		} catch (InterruptedException | URISyntaxException e) {
-			e.printStackTrace();
-		}
-	}
 
 
 	/**
@@ -93,7 +89,11 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception{
 		JmDNS mdns = JmDNS.create();
-		final Main remote = new Main(mdns);
+		
+		DACPPairingServer server = new DACPPairingServer(mdns);
+		LoginService loginService = new PairingLoginService(host, port, pairingGuid)
+		
+		final Remote remote = new ItunesRemote(mdns);
 		remote.start();
 
 		LOG.info("Press any key to exit");

@@ -15,11 +15,8 @@ public interface LoginService {
 	
 	/**
 	 * 
-	 * @param host
-	 * @param port
-	 * @param pairingGuid
-	 * @return
+	 * @return a future session
 	 */
-	public Future<Session> login(final String host, final int port, final String pairingGuid);
+	public Future<Session> login( );
 	
 }

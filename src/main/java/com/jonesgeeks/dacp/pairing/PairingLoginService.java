@@ -3,16 +3,21 @@
  */
 package com.jonesgeeks.dacp.pairing;
 
+import io.netty.util.concurrent.Future;
+
 import org.dyndns.jkiddo.dmcp.chunks.media.PlayingStatus;
 import org.dyndns.jkiddo.dmp.chunks.media.LoginResponse;
 import org.dyndns.jkiddo.dmp.chunks.media.UpdateResponse;
 import org.dyndns.jkiddo.service.daap.client.RequestHelper;
 
+import com.jonesgeeks.dacp.LoginService;
+import com.jonesgeeks.dacp.Session;
+
 /**
  * @author will
  *
  */
-public class PairingLoginService {
+public class PairingLoginService implements LoginService{
 
 	private final String host;
 	private final int port;
@@ -111,6 +116,12 @@ public class PairingLoginService {
 		final UpdateResponse state = RequestHelper.requestParsed(String.format("%s/update?session-id=%s&revision-number=%s&delta=0", this.getRequestBase(), sessionId, 1), true);
 		long revision = state.getServerRevision().getUnsignedValue();
 		return revision;
+	}
+
+	@Override
+	public Future<Session> login() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
